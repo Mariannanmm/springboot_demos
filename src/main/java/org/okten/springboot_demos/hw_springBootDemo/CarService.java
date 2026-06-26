@@ -11,7 +11,7 @@ public class CarService {
 
     private final List<Car> cars = new ArrayList<>();
     private Long idCounter = 1L;
-    
+
     public List<Car> getAllCars() {
         return cars;
     }

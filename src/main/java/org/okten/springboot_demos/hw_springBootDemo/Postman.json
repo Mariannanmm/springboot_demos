@@ -1,0 +1,118 @@
+{
+  "info": {
+    "_postman_id": "0d25183e-73cc-4fea-ac8a-63ea08d7c27e",
+    "name": "Cars API (Homework)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52885414",
+    "_collection_link": "https://go.postman.co/collection/52885414-0d25183e-73cc-4fea-ac8a-63ea08d7c27e?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "new car(POST)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"model\": \"M5\",\n    \"producer\": \"BMW\",\n    \"power\": 600\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{host}}cars",
+          "host": [
+            "{{host}}cars"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "all cars (GET)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{host}}cars",
+          "host": [
+            "{{host}}cars"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "by ID (GET)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{host}}cars/1",
+          "host": [
+            "{{host}}cars"
+          ],
+          "path": [
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "by power(GET)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{host}}cars/power/600",
+          "host": [
+            "{{host}}cars"
+          ],
+          "path": [
+            "power",
+            "600"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "by produser(GET)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{host}}cars/producer/BMW",
+          "host": [
+            "{{host}}cars"
+          ],
+          "path": [
+            "producer",
+            "BMW"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "del by ID (DELETE)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{host}}cars/1",
+          "host": [
+            "{{host}}cars"
+          ],
+          "path": [
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
