@@ -1,51 +1,46 @@
 package org.okten.springboot_demos.controllers;
 
+import lombok.AllArgsConstructor;
+import org.okten.springboot_demos.dao.CustomerDAO;
 import org.okten.springboot_demos.models.Customer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/customers")
+@AllArgsConstructor
 public class MainController {
 
-    List<Customer> customerList = new ArrayList<>();
+    private CustomerDAO customerDAO;
 
-    public MainController() {
-        customerList.add(new Customer(1, "Biba"));
-        customerList.add(new Customer(2, "Boba"));
-        customerList.add(new Customer(3, "Aboba"));
-        customerList.add(new Customer(4, "Boloba"));
-        customerList.add(new Customer(5, "Labuba"));
+   @GetMapping ("")
+   public ResponseEntity<List<Customer>> getCustomers() {
+       List<Customer> all = customerDAO.findAll();
+       return new ResponseEntity<>(all, HttpStatus.OK);
+   }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Customer> getCustomer(@PathVariable int id) {
+        return new ResponseEntity<>(customerDAO.findOne(id), HttpStatus.OK);
     }
 
-
-
-
-    @GetMapping("/")
-    public ResponseEntity<String> home() {
-        return new ResponseEntity<>("home get", HttpStatus.OK);
-    }
-    @PostMapping("/")
-    public ResponseEntity<String> home_post() {
-        return new ResponseEntity<>("home post", HttpStatus.CREATED);
-    }
-    @GetMapping("/customers")
-    public ResponseEntity<List<Customer>> getCustomers() {
-        return new ResponseEntity<>(customerList, HttpStatus.OK);
-    }
-    //@PostMapping("/customers")
-    //public ResponseEntity<List<Customer>> saveCustomer(
-    //        @RequestParam int id,
-    //        @RequestParam String name) {
-    //    this.customerList.add(new Customer(id, name));
-    //    return new ResponseEntity<>(this.customerList, HttpStatus.CREATED);
-    //}
-    @PostMapping("/customers")
+    @PostMapping("")
     public void saveCustomerJSON(@RequestBody Customer customer) {
-        customerList.add(customer);
-        System.out.println(customerList);
+
+       customerDAO.save(customer);
+
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<List<Customer>> deleteCustomer(@PathVariable int id) {
+       customerDAO.delete(id);
+        return  new ResponseEntity<>(customerDAO.findAll(), HttpStatus.OK);
+    }
+    @PatchMapping("")
+    public ResponseEntity<List<Customer>> updateCustomer(@RequestBody Customer customer) {
+       customerDAO.update(customer);
+       return new ResponseEntity<>(customerDAO.findAll(), HttpStatus.OK);
     }
 }
