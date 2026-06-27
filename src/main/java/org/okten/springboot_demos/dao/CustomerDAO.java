@@ -4,36 +4,18 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.okten.springboot_demos.models.Customer;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-@Transactional
-public class CustomerDAO {
-    @PersistenceContext
-    private EntityManager entityManager;
 
+public interface CustomerDAO extends JpaRepository<Customer, Integer> {
 
-    public void save(Customer customer) {
-        entityManager.persist(customer);
-    }
+    @Query("select c from Customer c where c.name=:name" )
+    List<Customer> findByName(@Param("name") String Name);
 
-
-    public void update(Customer customer) {
-        entityManager.merge(customer);
-    }
-    public List<Customer> findAll() {
-        //return entityManager.createNativeQuery("select * from customer", Customer.class).getResultList();
-        return entityManager.createQuery("select c from Customer c", Customer.class).getResultList();
-    }
-
-    public Customer findOne(int id) {
-        return entityManager.find(Customer.class, id);
-    }
-
-    public void delete(int id) {
-        entityManager.remove(findOne(id));
-    }
 
 }

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/customers")
@@ -24,7 +25,8 @@ public class MainController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Customer> getCustomer(@PathVariable int id) {
-        return new ResponseEntity<>(customerDAO.findOne(id), HttpStatus.OK);
+       Optional<Customer> byId = customerDAO.findById(id);
+        return new ResponseEntity<>(byId.get(), HttpStatus.OK);
     }
 
     @PostMapping("")
@@ -35,12 +37,18 @@ public class MainController {
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<List<Customer>> deleteCustomer(@PathVariable int id) {
-       customerDAO.delete(id);
+       customerDAO.deleteById(id);
         return  new ResponseEntity<>(customerDAO.findAll(), HttpStatus.OK);
     }
     @PatchMapping("")
     public ResponseEntity<List<Customer>> updateCustomer(@RequestBody Customer customer) {
-       customerDAO.update(customer);
+       customerDAO.save(customer);
        return new ResponseEntity<>(customerDAO.findAll(), HttpStatus.OK);
     }
+    @GetMapping("/findBy/name/{name}")
+    public List<Customer> findByNameQuery(@PathVariable  String name) {
+       return customerDAO.findByName(name);
+    }
+
 }
+
