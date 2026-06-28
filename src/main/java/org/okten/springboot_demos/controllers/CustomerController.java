@@ -1,7 +1,9 @@
 package org.okten.springboot_demos.controllers;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.okten.springboot_demos.dao.CustomerDAO;
+import org.okten.springboot_demos.dto.CustomerDTO;
 import org.okten.springboot_demos.models.Customer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,18 +11,20 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/customers")
 @AllArgsConstructor
-public class MainController {
+public class CustomerController {
 
     private CustomerDAO customerDAO;
 
    @GetMapping ("")
-   public ResponseEntity<List<Customer>> getCustomers() {
+   public ResponseEntity<List<CustomerDTO>> getCustomers() {
        List<Customer> all = customerDAO.findAll();
-       return new ResponseEntity<>(all, HttpStatus.OK);
+       List<CustomerDTO> collect = all.stream().map(customer -> new CustomerDTO(customer.getName(),customer.getAge())).collect(Collectors.toList());
+       return new ResponseEntity<>(collect, HttpStatus.OK);
    }
 
     @GetMapping("/{id}")
@@ -30,8 +34,10 @@ public class MainController {
     }
 
     @PostMapping("")
-    public void saveCustomerJSON(@RequestBody Customer customer) {
-
+    public void saveCustomerJSON(@RequestBody @Valid CustomerDTO customerDTO) {
+       Customer customer = new Customer();
+       customer.setName(customerDTO.getCustomerName());
+       customer.setAge(customerDTO.getCustomerAge());
        customerDAO.save(customer);
 
     }
