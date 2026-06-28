@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.okten.springboot_demos.dao.CustomerDAO;
 import org.okten.springboot_demos.dto.CustomerDTO;
 import org.okten.springboot_demos.models.Customer;
+import org.okten.springboot_demos.services.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +20,12 @@ import java.util.stream.Collectors;
 public class CustomerController {
 
     private CustomerDAO customerDAO;
+    private CustomerService customerService;
 
    @GetMapping ("")
-   public ResponseEntity<List<CustomerDTO>> getCustomers() {
-       List<Customer> all = customerDAO.findAll();
-       List<CustomerDTO> collect = all.stream().map(customer -> new CustomerDTO(customer.getName(),customer.getAge())).collect(Collectors.toList());
-       return new ResponseEntity<>(collect, HttpStatus.OK);
+   public ResponseEntity<CustomerDTO> getCustomers() {
+
+       return new ResponseEntity<>(customerService.findAll(), HttpStatus.OK);
    }
 
     @GetMapping("/{id}")

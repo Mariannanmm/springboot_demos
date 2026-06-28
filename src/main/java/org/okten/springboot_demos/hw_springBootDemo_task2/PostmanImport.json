@@ -1,0 +1,143 @@
+{
+  "info": {
+    "name": "Cars API Level Homework",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. GET All Cars (Level 3)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/cars",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "cars"
+          ]
+        },
+        "description": "Повертає список машин: тільки model та producer"
+      },
+      "response": []
+    },
+    {
+      "name": "2. GET Car By ID (Level 1)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/cars/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "cars",
+            "1"
+          ]
+        },
+        "description": "Повертає повну інформацію про машину за ID (id, model, producer, power)"
+      },
+      "response": []
+    },
+    {
+      "name": "3. POST Create Car",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"model\": \"M5\",\n    \"producer\": \"BMW\",\n    \"power\": 600\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/cars",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "cars"
+          ]
+        },
+        "description": "Приймає модель, виробника та потужність. Повертає створений об'єкт із ID."
+      },
+      "response": []
+    },
+    {
+      "name": "4. GET Cars By Power (Level 2)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/cars/power/600",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "cars",
+            "power",
+            "600"
+          ]
+        },
+        "description": "Фільтрація за потужністю. Повертає: model, producer, power"
+      },
+      "response": []
+    },
+    {
+      "name": "5. GET Cars By Producer (Level 2)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/cars/producer/BMW",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "cars",
+            "producer",
+            "BMW"
+          ]
+        },
+        "description": "Фільтрація за виробником (ігнорує регістр). Повертає: model, producer, power"
+      },
+      "response": []
+    },
+    {
+      "name": "6. DELETE Car By ID",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/cars/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "cars",
+            "1"
+          ]
+        },
+        "description": "Видаляє машинку. Повертає 204 No Content, якщо успішно, або 404, якщо не знайдено."
+      },
+      "response": []
+    }
+  ]
+}
